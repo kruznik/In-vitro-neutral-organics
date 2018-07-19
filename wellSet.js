@@ -424,7 +424,7 @@ function dlGraphs(){
     let fileExtension=xlsx_info.fileExtension;
     let mimeType=xlsx_info.mimeType;
 
-    export_tables.exportmultisheet(export_data, mimeType, "Results",["Mass Fractions","Concentrations","Mass Balance"],fileExtension,{},[]);
+    export_tables.exportmultisheet(export_data, mimeType, "Results",["Mass Fractions","Mass Balance","Concentrations"],fileExtension,{},[]);
 
 }
 
