@@ -1,0 +1,387 @@
+<html>
+    <body>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" type="text/css" href="menu.css">
+            <link rel="stylesheet" type="text/css" href="sysParam.css">
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.0.0/css/tableexport.min.css">
+        </head>
+        <!--Tab Links-->
+        <div class="tab">
+            <button class="tablinks" id="chemDatT" onclick="changeTab(event,'chemDat')">Input Chemical Data</button>
+            <button class="tablinks" id="sysParmT" onclick="changeTab(event,'sysParm')">Input System Parameter</button>
+            <button class="tablinks" id="qaqcT" onclick="changeTab(event,'qaqc')">QA-QC</button>
+            <button class="tablinks" id="massFT" onclick="changeTab(event,'massF')">Mass Fractions</button>
+            <button class="tablinks" id="massBT" onclick="changeTab(event,'massB')">Mass Balance</button>
+            <button class="tablinks" id="concT" onclick="changeTab(event,'conc')">Concentrations</button>
+        </div>
+
+        <!--Tab content-->
+        <div class="tabcontent" id="chemDat">
+            <h3>Input Chemical Data</h3>
+            <table id="inptChemTable">
+                <tr>
+                    <th>Chemical</th>
+                    <th>CAS</th>
+                    <th>MW (g/mol)</th>
+                    <th>MP (&#8451)</th>
+                    <th>d S<sub>M</sub>, J/mol/K</th>
+                    <th>log K<sub>OW</sub></th>
+                    <th>d U<sub>OW</sub>, J/mol</th>
+                    <th>log K<sub>MW</sub></th>
+                    <th>d U<sub>MW</sub>, J/mol</th>
+                    <th>log K<sub>AW</sub></th>
+                    <th>d U<sub>AW</sub>, J/mol</th>
+                    <th>C<sub>SAT,W</sub>(mg/L)</th>
+                    <th>log K<sub>PLASTIC</sub>, m<sup>3</sup>/m<sup>2</sup></th>
+                    <th>log K<sub>CW</sub></th>
+                    <th>log K<sub>SaW</sub></th>
+                    <th>Ksalt</th>
+                    <th>EC<sub>x</sub> in &mu;M</th>
+                </tr>
+                <tr>
+                    <td><input type="text" class="chemINP"></td>
+                    <td><input type="text" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP" value="56.5"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP" value="-20000"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP" value="60000"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                    <td><input type="number" class="chemINP"></td>
+                </tr>
+            </table>
+            <button id="addRow">Add Row</button>
+            <button id="remRow">Remove Row</button>
+            <form id="optSEL">
+                <input type="radio" name="sawOpt" class="KsawOPT" checked>log K<sub>SAW</sub>=0.71 log K<sub>OW</sub>+.42<br>
+                <input type="radio" name="sawOpt" class="KsawOPT">log K<sub>OW</sub>&lt;4.5:log K<sub>SAW</sub>1.08 log K<sub>OW</sub>-.7; log K<sub>OW</sub>>=4.5:log K<sub>SAW</sub>=.37 log K<sub>OW</sub>+2.56<br>
+                <input type="radio" name="salOpt" class="KsalOPT" checked>Fugacity Ratio Approach<br>
+                <input type="radio" name="salOpt" class="KsalOPT">General Solubility Equation
+            </form>
+        </div>
+
+        <div class="tabcontent" id="sysParm">
+                <h3>Input System Parameters</h3>
+                <table id="wellPlaChar">
+                    <tr>
+                        <th># of wells</th>
+                        <th>Well diameter (bottom) (mm)</th>
+                        <th>Growth Area (bottom) (mm)</th>
+                        <th>Total Well Volume (&mu;L)</th>
+                        <th>Typical Working Volume (&mu;L)</th>
+                        <th>Working Volume (&mu;L)</th>
+                        <th>Avg Cell Yield</th>
+                        <th>Assumed Mass of Cells</th>
+                    </tr>
+
+                    <tr>
+                        <td>6 well</td>
+                        <td>34.8</td>
+                        <td>950</td>
+                        <td>16800</td>
+                        <td>1900-2900</td>
+                        <td><input type="number" value="2400"></td>
+                        <td><input type="number" value="950000"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>12 well</td>
+                        <td>22.1</td>
+                        <td>380</td>
+                        <td>6900</td>
+                        <td>760-1140</td>
+                        <td><input type="number" value="950"></td>
+                        <td><input type="number" value="380000"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>24 well</td>
+                        <td>15.6</td>
+                        <td>190</td>
+                        <td>3400</td>
+                        <td>380-570</td>
+                        <td><input type="number" value="475"></td>
+                        <td><input type="number" value="190000"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>48 well</td>
+                        <td>11</td>
+                        <td>95</td>
+                        <td>1600</td>
+                        <td>190-285</td>
+                        <td><input type="number" value="240"></td>
+                        <td><input type="number" value="95000"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>96 well, Flat bottom</td>
+                        <td>6.4</td>
+                        <td>32</td>
+                        <td>360</td>
+                        <td>100-200</td>
+                        <td><input type="number" value="150"></td>
+                        <td><input type="number" value="20000"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>96 well, 1/2 area</td>
+                        <td>4.5</td>
+                        <td>16</td>
+                        <td>190</td>
+                        <td>50-100</td>
+                        <td><input type="number" value="75"></td>
+                        <td><input type="number" value="16000"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>384 well, Standard</td>
+                        <td>2.7</td>
+                        <td>3.1</td>
+                        <td>112</td>
+                        <td>25-50</td>
+                        <td><input type="number" value="40"></td>
+                        <td><input type="number" value="5600"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>384 well, Low Volume</td>
+                        <td>2</td>
+                        <td>5.6</td>
+                        <td>50</td>
+                        <td>5-40</td>
+                        <td><input type="number" value="15"></td>
+                        <td><input type="number" value="3100"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>1536 well, Clear flat bottom</td>
+                        <td>1.63</td>
+                        <td>2.5</td>
+                        <td>12.5</td>
+                        <td>5-10</td>
+                        <td><input type="number" value="5"></td>
+                        <td><input type="number" value="2500"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>1536 well, Solid flat bottom</td>
+                        <td>1.53</td>
+                        <td>2.3</td>
+                        <td>12.5</td>
+                        <td>5-10</td>
+                        <td><input type="number" value="5"></td>
+                        <td><input type="number" value="2300"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr>
+                        <td>1536 well, Low Volume</td>
+                        <td>1.2</td>
+                        <td>1.1</td>
+                        <td>2.3</td>
+                        <td>1-1.5</td>
+                        <td><input type="number" value="1"></td>
+                        <td><input type="number" value="1200"></td>
+                        <td><output></output></td>
+                    </tr>
+                    <tr> 
+                        <td>USER-SPECIFIED</td>
+                        <td><input type="number" value="1.63"></td>
+                        <td><input type="number" value="2.5"></td>
+                        <td><input type="number" value="12.5"></td>
+                        <td><input value="5-10"></td>
+                        <td><input type="number" value="5"></td>
+                        <td><input type="number" value="2500"></td>
+                        <td><output></output></td>
+                    </tr>
+                </table>
+
+                <div class="sysParam">
+                    <div class="col-25">
+                        <label>Well Type: </label>
+                        <select id="wellsMenu">
+                            <option>6 well</option>
+                            <option>12 well</option>
+                            <option>24 well</option>
+                            <option>48 well</option>
+                            <option>96 well, Flat bottom</option>
+                            <option>96 well, 1/2 area</option>
+                            <option>384 well, Standard</option>
+                            <option>384 well, Low Volume</option>
+                            <option>1536 well, Clear flat bottom</option>
+                            <option>1536 well, Solid flat bottom</option>
+                            <option>1536 well, Low Volume</option>
+                            <option>USER-SPECIFIED</option>
+                        </select>
+                        <br>
+                        <label>Total Well Volume: </label><output class="testSysP"></output><br>
+                        <label>Bulk Medium: </label><output class="testSysP"></output><br>
+                        <label>Head Space: </label><output class="testSysP"></output><br>
+                        <label>Serum Albumin: </label><output class="testSysP"></output><br>
+                        <label>Serum Lipids: </label><output class="testSysP"></output><br>
+                        <label>DOM: </label><output class="testSysP"></output><br>                 
+                        <label>Cell/Tissue: </label><output class="testSysP"></output><br>
+                        <form>
+                            <input type="checkbox" class="sorpVessel">Include bottom of well?<br>
+                            <input type="checkbox" class="sorpVessel">Ignore sorption to plastic?
+                        </form>
+                    </div>
+                    <div class="col-50">
+                        <label>Structural Protein: </label><input type="number" value=".035"><br>
+                        <label>DOM: </label><input type="number" value=.05><br>
+                        <label>Storage lipid-octanol: </label><input type="number" value="1"><br>
+                        <label>Storage lipids: </label><input type="number" value=".01"><br>
+                        <label>Membrane lipids: </label><input type="number" value=".04"><br>
+                        <label>Structural Protein(NLOM): </label><input type="number" value=".20"><br>
+                        <label>Density(cells): </label><input type="number" value="1"><br>
+                        <label>Mass: </label><output class="testSysP"></output><br>
+                        <label>Temperature: </label><input type="number" value="37"><br>
+                        <label>Ionic strength: </label><input type="number" value=".15"><br>
+                        <label>VF<sub>SERUM</sub>: </label><input type="number" value=".10"><br>
+                        <label>C<sub>DOM</sub>: </label><input type="number" value="0"><br>
+                        <label>Density of DOM: </label><input type="number" value="1"><br>
+                        <label>Albumin: </label><input type="number" value="24"><br>
+                        <label>Lipids: </label><input type="number" value="1.9">
+                    </div>
+
+                </div>
+                <label>Mass per cell:</label>
+                <input type="number" id="massPerCell" value="3">
+                <button id="calc">Calculate</button>
+                <button id="dlGraphs">Download</button>
+        </div>
+
+        <div class="tabcontent" id="qaqc">
+                <h3>QA-QC</h3>
+                <table></table>
+        </div>
+
+        <div class="tabcontent" id="massF">
+                <h3>Mass Fraction</h3>
+                <table id="massFractionTable" class="outputTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>CAS</th>
+                        <th>log Kow</th>
+                        <th>log Kaw</th>
+                        <th>MF<sub>AIR</sub></th>
+                        <th>MF<sub>BULK WAT</sub></th>
+                        <th>MF<sub>ALB</sub></th>
+                        <th>MF<sub>S-LIP</sub></th>
+                        <th>MF<sub>DOM</sub></th>
+                        <th>MF<sub>WAT</sub></th>
+                        <th>MF<sub>CELLS</sub></th>
+                        <th>MF<sub>Plastic</sub></th>
+                        <th>MF<sub>PRECIP</sub></th>
+                    </tr>
+                    <tr>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                        <td><output class="mfChemOut"></output></td>
+                    </tr>
+                </table>
+        </div>
+
+        <div class="tabcontent" id="massB">
+                <h3>Mass Balance</h3>
+                <table id="massBalanceTable" class="outputTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>CAS</th>
+                        <th>log Kow</th>
+                        <th>log Kaw</th>
+                        <th>M<sub>AIR</sub></th>
+                        <th>M<sub>WAT</sub></th>
+                        <th>M<sub>ALB</sub></th>
+                        <th>M<sub>S-LIP</sub></th>
+                        <th>M<sub>DOM</sub></th>
+                        <th>M<sub>Cells</sub></th>
+                        <th>M<sub>Plastic</sub></th>
+                        <th>M<sub>PRECIP</sub></th>
+                    </tr>
+                    <tr>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                        <td><output class="mbChemOut"></output></td>
+                    </tr>
+                </table>
+        </div>
+
+        <div class="tabcontent" id="conc">
+                <h3>Concentrations</h3>
+                <table id="concentrationTable" class="outputTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>CAS</th>
+                        <th>log Kow</th>
+                        <th>log Kaw</th>
+                        <th>C<sub>NOM,initial</sub></th>
+                        <th>C<sub>AIR</sub></th>
+                        <th>C<sub>BULK WAT</sub></th>
+                        <th>C<sub>ALB</sub></th>
+                        <th>C<sub>S-LIP</sub></th>
+                        <th>C<sub>DOM</sub></th>
+                        <th>C<sub>WAT</sub></th>
+                        <th>Nominal DF</th>
+                        <th>C<sub>cells</sub></th>
+                        <th>ng/g</th>
+                        <th>Cell EF</th>
+                        <th>A<sub>Plastic</sub></th>
+                    </tr>
+                    <tr>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                        <td><output class="concChemOut"></output></td>
+                    </tr>
+                </table>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.2/xlsx.full.min.js"></script>
+        <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+        <script lang="javascript" src="tableexport.js"></script>
+        <script type="text/javascript" src="menu.js"></script>
+        <script type="text/javascript" src="wellSet.js"></script>
+    </body>
+</html>
